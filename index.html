@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>넷플릭스 스타일 (영상 미리보기)</title>
+  <title>223 STUDIO</title>
   <style>
     body {
       margin: 0;
@@ -35,16 +35,16 @@
     }
 
     .hero {
-      position: relative;
-      height: 75vh;
-      background: url('title.png') center/cover no-repeat;
-      display: flex;
-      align-items: flex-end;
-      padding: 60px;
-      z-index: 1;
-      overflow: hidden;
-      transition: transform 0.4s ease;
-    }
+  background: url('title.png') center/cover no-repeat;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    background-size: contain;
+    background-position: center top;
+  }
+}
+
 
     .hero.hovering {
       transform: scale(1.01);
