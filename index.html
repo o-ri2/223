@@ -1,381 +1,772 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>223 STUDIO</title>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <style>
-    :root {
-      --card-gap: 1rem;
-      --max-card-width: 300px;
-    }
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Netflix Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+            user-select: none;
+        }
 
-    body {
-      margin: 0;
-      background: #141414;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
+        body {
+            background-color: #141414;
+            font-family: Arial, sans-serif;
+        }
 
-  header {
-  position: absolute;
-  top:0;
-  left:0;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 1rem 2vw;
-  background: transparent;
-  z-index: 20;
-}
+        a {
+            text-decoration: none;
+        }
 
+        button {
+            border: none;
+            padding: 0.9em 2em;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.3em;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
+        }
 
-   header img.logo {
-  height: clamp(1.5rem, 5vw, 2.5rem);
-  transition: height 0.3s ease;
-}
-    nav a {
-      margin: 0 0.8rem;
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-    
-    nav a.active {
-  font-weight: bold;
-}
+        nav .left {
+            display: flex;
+            margin-left: 2em;
+        }
 
+        nav .left .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            padding: 0.5em;
+            width: 5rem;
+            font-size: 1.5rem;
+            color: #e50914;
+        }
 
-    .hero {
-  position: relative;
-  width: 100%;
-  /* 높이를 고정 vh에서 가변으로 변경 */
-  max-height: 78vh;  
-  max-width: 100vw;      
-  aspect-ratio: 16 / 9;     
-  background: url('title.png') center/cover no-repeat;
-  display: flex;
-  align-items: flex-end;
-  padding: 3vh vw;
-  z-index: 1;
-  overflow: hidden;
-  transition: transform 0.4s ease;
-}
-    .hero.hovering {
-      transform: scale(1.01);
-    }
+        nav .left .logo a {
+            width: 100%;
+        }
 
-    .hero video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-      z-index: 0;
-    }
+        nav .left .mobile-menu {
+            display: none;
+        }
 
-    .hero.hovering video {
-      opacity: 1;
-    }
+        nav .left .menu-list {
+            display: flex;
+        }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 30%;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-      z-index: 0;
-    }
+        nav .left .menu-list li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+            padding: 0.2em 1em 0.5em 1em;
+        }
 
-   .hero {
-  position: relative; /* 기준이 될 부모 */
-}
+        nav .left .menu-list li a {
+            font-size: 0.8rem;
+        }
 
-.hero-content {
-  position: absolute;
-  
-  top: auto; max-height:80%;
-  bottom: 8%;    /* 박스 왼쪽 하단에 붙이려면 bottom + left 조합 추천 */
-  left: 5rem;
-  z-index: 1; 
-  color: white;
+        nav .right {
+            display: flex;
+            margin-right: 2em;
+        }
 
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: 30%;   /* 원하는 최대 크기 */
-  width: auto;
+        nav .right .icon {
+            padding: 0.5em 1em 0.5em 1em;
+        }
 
-  /* 텍스트 크기만 유동적으로 조절 */
-  font-size: clamp(0.8rem, 2vw, 1.2rem);
+        nav .right .profile {
+            padding: 0;
+        }
 
-  /* 박스 크기는 고정 (max-width 내에서) */
-}
+        nav .right .profile a {
+            display: flex;
+            align-items: center;
+        }
 
+        nav .right .profile a .avatar-box {
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
 
-    .button {
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: #fff;
-      padding: 0.9em 1.5em;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1em;
-      border-radius: 5px;
-    }
+        nav .right .profile i {
+            transition: all 300ms;
+        }
 
-    .play-button {
-      background: rgba(255, 255, 255, 0.7);
-      color: #000;
-    }
+        nav .right .profile:hover i {
+            transform: rotate(180deg);
+        }
 
-    .play-button:hover {
-      background: #e50914;
-      color: #fff;
-    }
+        nav .right .search {
+            border: 1px solid white;
+            background-color: black;
+        }
 
-    .info-button:hover {
-      background: #333;
-    }
+        nav .right .search .search-bar {
+            display: flex;
+        }
 
-    .cards-section {
-      padding: 3rem 5vw 2rem; 
-    }
+        nav .right .search .search-bar i {
+            margin-right: 0.5em;
+        }
 
-    .cards-section h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
+        nav .right .search .search-bar input {
+            background-color: transparent;
+            border: none;
+            color: #333;
+            outline: none;
+        }
 
-    .cards {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  flex-wrap: wrap;
-} 
+        main {
+            position: relative;
+        }
 
-    .card {
-  flex: 1 1 calc((100% - 4rem) / 5);
-  max-width: calc((100% - 4rem) / 5); /* 5개니까 gap 총 4개 = 4rem */
-  background: #333;
-  border-radius: 5px;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-/* 4개 */
-@media (max-width: 1200px) {
-  .card {
-    flex-basis: calc((100% - 3rem) / 4);
-    max-width: calc((100% - 3rem) / 4);
-  }
-}
+        main .video video {
+            width: 100%;
+            height: 100%;
+            max-height: 60vh;
+            object-fit: cover;
+        }
 
-/* 3개 */
-@media (max-width: 900px) {
-  .card {
-    flex-basis: calc((100% - 2rem) / 3);
-    max-width: calc((100% - 2rem) / 3);
-  }
-}
+        main .description {
+            position: absolute;
+            bottom: 30%;
+            left: 40px;
+            max-width: 500px;
+        }
 
-/* 2개 */
-@media (max-width: 600px) {
-  .card {
-    flex-basis: calc((100% - 1rem) / 2);
-    max-width: calc((100% - 1rem) / 2);
-  }
-}
+        main .description h1 {
+            margin: 0.5em 0;
+        }
 
-/* 1개 */
-@media (max-width: 768px) {
-  .card {
-    flex-basis: 100%;
-    max-width: 100%;
-  }
-}
+        main .description h3 {
+            margin: 0.5em 0;
+        }
 
-@media (max-width: 400px) {
-  .card {
-    flex: 1 1 100%;   /* flex-basis 100%로 바꿔서 한 줄에 한 개 */
-    max-width: 100%;  /* max-width도 100% */
-  }
-}
+        main .description p {
+            margin: 0.8em 0 2em 0;
+        }
 
-    .card img,
-    .card video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+        main .description .buttons {
+            display: flex;
+            gap: 10px;
+        }
 
-    .card video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: none;
-      z-index: 1;
-    }
+        main .description .buttons .play {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5em;
+        }
 
-    .card:hover {
-      transform: scale(1.05);
-    }
+        main .description .buttons .play:hover {
+            background-color: #cccccc;
+        }
 
-    .card.hovering video {
-      display: block;
-    }
+        main .description .buttons .play * {
+            color: black;
+        }
 
-    .card.hovering img {
-      display: none;
-    }
+        main .description .buttons .play i {
+            color: black;
+            font-size: 1.3rem;
+        }
 
-    .card.no-video:hover img {
-      transform: scale(1.05);
-      filter: brightness(75%);
-    }
+        main .description .buttons .play span {
+            font-size: 1rem;
+        }
 
-    @media (max-width: 768px) {
-      nav a {
-        font-size: 0.8rem;
-        margin: 0 0.5rem;
-      }
+        main .description .buttons .detail {
+            background-color: rgba(109, 109, 110, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 0.8em;
+        }
 
-      .hero-content p {
-        font-size: 1rem;
-      }
+        main .description .buttons .detail i {
+            font-size: 1.3rem;
+        }
 
-      .cards-section h2 {
-        font-size: 1.2rem;
-      }
-    }
-  </style>
+        main .description .buttons .detail:hover {
+            background-color: rgba(58, 58, 59, 0.7);
+        }
+
+        main .age-info {
+            position: absolute;
+            bottom: 30%;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+
+        main .age-info i {
+            width: 35px;
+            height: 35px;
+            border: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        main .age-info .age {
+            width: 80px;
+            background-color: rgba(51, 51, 51, 0.6);
+            padding: 0.5em 1em;
+            position: relative;
+        }
+
+        main .age-info .age:before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 3px;
+            background-color: #fff;
+            left: 0;
+            top: 0;
+        }
+
+        section .content-list {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        section .content-list h1 {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        section .content-list .slider {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            padding-left: 2rem;
+        }
+
+        section .content-list .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        section .content-list .slider .item {
+            min-width: 250px;
+            height: 150px;
+            background: #262626;
+            background: linear-gradient(312deg, #262626 0%, #333333 54%, #2a2a2a 100%);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        section .content-list .slider .item:hover {
+            transform: scale(1.05);
+        }
+
+        section .content-list .slider .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        section .content-list .prev-arrow {
+            transform: rotateY(180deg);
+        }
+
+        section .content-list .prev {
+            font-size: 3rem;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-10px);
+            cursor: pointer;
+        }
+
+        section .content-list .next {
+            font-size: 3rem;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-10px);
+            cursor: pointer;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1c1c1c;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            position: relative;
+        }
+
+        .modal-image {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .modal-text {
+            padding-top: 15px;
+        }
+
+        .match {
+            color: #00e676;
+            font-weight: bold;
+        }
+
+        .date {
+            margin-left: 10px;
+            color: #ccc;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: red;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: flex;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            display: none;
+        }
+
+        footer {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        footer .wrap {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            row-gap: 2em;
+        }
+
+        footer .wrap .social-icons i {
+            font-size: 1.5rem;
+            margin: 0 0.3em;
+        }
+
+        footer .wrap .options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 1em;
+        }
+
+        footer .wrap .options .option {
+            color: #6f6f6f;
+        }
+
+        @media screen and (max-width: 1437px) {
+            main .description {
+                bottom: 10%;
+            }
+        }
+
+        @media screen and (max-width: 982px) {
+            nav {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 0.3em;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
+            }
+
+            nav .left {
+                display: flex;
+                margin-left: 2em;
+            }
+
+            nav .left .logo {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 800;
+                padding: 0em;
+                width: 5rem;
+            }
+
+            nav .left .mobile-menu {
+                z-index: 999;
+                display: block;
+                align-self: center;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+
+            nav .left .mobile-menu:hover + .menu-list {
+                display: flex;
+            }
+
+            nav .left .menu-list {
+                display: none;
+                top: 50px;
+                z-index: 999;
+                position: absolute;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.67);
+                padding: 1em 4em;
+            }
+
+            nav .left .menu-list li {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                list-style: none;
+                padding: 0.2em 1em 0.5em 1em;
+                margin: 0.3em 0;
+            }
+
+            nav .left .menu-list:before {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 3px;
+                background-color: white;
+                top: 0;
+                left: 0;
+            }
+
+            nav .right .search {
+                border: none;
+                background-color: transparent;
+            }
+
+            nav .right .search .search-bar input {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            main .description h1,
+            main .description h3,
+            main .description p {
+                display: none;
+            }
+
+            button {
+                font-size: 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <div class="left">
+            <div class="logo">
+                <img src="logo.png" alt="넷플릭스 로고" class="logo">
+            </div>
+            <div class="mobile-menu">메뉴</div>
+            <ul class="menu-list">
+                <li><a href="#">홈</a></li>
+                <li><a href="#">시리즈</a></li>
+                <li><a href="#">영화</a></li>
+                <li><a href="#">NEW! 요즘 대세 콘텐츠</a></li>
+                <li><a href="#">내가 찜한 콘텐츠</a></li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="icon search">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="제목, 사람, 장르"/>
+                </div>
+            </div>
+            <div class="icon kids">
+                <a href="#"></a>
+            </div>
+            <div class="icon bell">
+                <a href="#"><i class="fa-solid fa-bell"></i></a>
+            </div>
+            <div class="icon profile">
+                <a href="#">
+                    <div class="avatar-box"></div>
+                    <i class="fa-solid fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="video">
+            <video src="title.mp4" autoplay muted loop></video>
+        </div>
+        <div class="description">
+            <h1>여 백</h1>
+            <h3>매주 새로운 에피소드 공개</h3>
+            <p>
+                잘 나가는 미술작가 시은, 어느날 그린 적 없는
+                그림이 캔버스에 생기기 시작한다... 과연 그녀는
+                어떻게 문제를 해결할 수 있을까?
+            </p>
+            <div class="buttons">
+                <button class="play"><i class="fa-solid fa-play"></i><span>재생</span></button>
+                <button class="detail"><i class="fa-solid fa-circle-info"></i>상세 정보</button>
+            </div>
+        </div>
+        <div class="age-info">
+            <i class="fa-solid fa-rotate-right"></i>
+            <div class="age">15+</div>
+        </div>
+    </main>
+    
+    <section>
+        <div class="content-list">
+            <h1>한국이 만든 콘텐츠</h1>
+            <div class="slider" id="slider1">
+            </div>
+            <div class="prev"><i class="fa-solid fa-angle-right prev-arrow"></i></div>
+            <div class="next"><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+        <div class="content-list">
+            <h1>지금 뜨는 콘텐츠</h1>
+            <div class="slider" id="slider2">
+            </div>
+            <div class="prev"><i class="fa-solid fa-angle-right prev-arrow"></i></div>
+            <div class="next"><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+        <div class="content-list">
+            <h1>오늘 한국의 TOP 10 콘텐츠</h1>
+            <div class="slider" id="slider3">
+            </div>
+            <div class="prev"><i class="fa-solid fa-angle-right prev-arrow"></i></div>
+            <div class="next"><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+    </section>
 
-<header>
-  <img src="223.png" alt="넷플릭스 로고" class="logo">
-  <nav>
-   <a href="#" class="active">홈</a> <!-- 여기에 클래스 추가 -->
-    <a href="#">시리즈</a>
-    <a href="#">영화</a>
-    <a href="#">NEW! 요즘 대세</a>
-    <a href="#">내가 찜한 콘텐츠</a>
-  </nav>
-</header>
+    <!-- Modal Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Modal -->
+    <div class="modal hidden" id="modal">
+        <div class="modal-content">
+            <button class="close-button" id="closeBtn">×</button>
+            <img src="" alt="" class="modal-image" id="modalImage" />
+            <div class="modal-text">
+                <div class="match">98% for you<span class="date" id="modalDate">2023-06-16</span></div>
+                <h2 id="modalTitle">영화 제목</h2>
+                <p><strong>평점:</strong> <span id="modalRating">8.5</span></p>
+                <p id="modalDescription">영화 설명이 여기에 표시됩니다.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="wrap">
+            <div class="social-icons">
+                <i class="fa-brands fa-facebook-square"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+            <div class="options">
+                <div class="option">자막 및 음성</div>
+                <div class="option">음성 지원</div>
+                <div class="option">고객 센터</div>
+                <div class="option">기프트카드</div>
+                <div class="option">미디어 센터</div>
+                <div class="option">투자 정보(IR)</div>
+                <div class="option">입사 정보</div>
+                <div class="option">이용 약관</div>
+                <div class="option">개인 정보</div>
+                <div class="option">법적 고지</div>
+                <div class="option">쿠키 설정</div>
+                <div class="option">회사 정보</div>
+                <div class="option">문의하기</div>
+            </div>
+        </div>
+    </footer>
 
-<div class="hero">
-  <video src="title.mp4" muted autoplay loop playsinline></video>
-  <div class="hero-content">
-    <h1>여백</h1>
-    <p>누구나 알아주는 작가 시은, 그녀는 어느 날 본인이 그린 적 없는 초상화를 발견한다.<br />
-      그녀가 그린 적 없는 초상화는 과연 누구인가..</p>
-    <div class="buttons">
-      <button class="button play-button">▶ 재생</button>
-      <button class="button info-button">상세 정보</button>
-    </div>
-  </div>
-</div>
+    <script>
+        const next = document.querySelectorAll('.next');
+        const prev = document.querySelectorAll('.prev');
+        const slider = document.querySelectorAll('.slider');
+        const modal = document.getElementById('modal');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('closeBtn');
 
-<div class="cards-section">
-  <h2>Chapter 1</h2>
-  <div class="cards">
-    <div class="card">
-      <video src="1.mp4" muted autoplay loop playsinline></video>
-      <img src="1.png" alt="썸네일 1">
-    </div>
-    <div class="card">
-      <video src="2.mp4" muted autoplay loop playsinline></video>
-      <img src="2.png" alt="썸네일 2">
-    </div>
-    <div class="card">
-      <video src="3.mp4" muted autoplay loop playsinline></video>
-      <img src="3.png" alt="썸네일 3">
-    </div>
-    <div class="card no-video">
-      <img src="4.png" alt="썸네일 4">
-    </div>
-    <div class="card no-video">
-      <img src="5.png" alt="썸네일 5">
-    </div>
-  </div>
-</div>
+        // Sample movie data
+        const sampleMovies = [
+            {
+                title: "#1",
+                medium_cover_image: "1.png",
+                rating: 7.7,
+                year: 2023,
+                description: "대기 오염으로 황폐해진 2071년 디스토피아 세계. 한 난민이 막강한 힘을 자랑하는 택배기사가 되기 위해 힘겨운 싸움을 시작한다. 그래야만 식량을 구해 생존할 수 있기에."
+            },
+            {
+                title: "#2",
+                medium_cover_image: "2.png",
+                rating: 8.7,
+                year: 2021,
+                description: "어린 시절 놀았던 놀이가 생존을 건 게임이 되어버린 세상. 456억의 상금을 두고 목숨을 걸어야 하는 참가자들의 이야기."
+            },
+            {
+                title: "#3",
+                medium_cover_image: "3.png",
+                rating: 8.6,
+                year: 2019,
+                description: "계급 사회의 어두운 단면을 그린 봉준호 감독의 작품. 반지하 생활을 하는 기택 가족이 부유한 박 사장 가족을 만나면서 벌어지는 이야기."
+            },
+            {
+                title: "#4",
+                medium_cover_image: "4.png",
+                rating: 8.3,
+                year: 2019,
+                description: "조선시대를 배경으로 한 좀비 스릴러. 역병이 퍼진 조선에서 왕세자가 진실을 찾아 나서는 이야기."
+            },
+            {
+                title: "#5",
+                medium_cover_image: "5.png",
+                rating: 6.5,
+                year: 2021,
+                description: "2092년 우주를 배경으로 한 SF 영화. 우주 쓰레기 청소선 승리호의 선원들이 인류를 구할 비밀을 발견하게 되는 이야기."
+            },
+            {
+                title: "#6",
+                medium_cover_image: "6.png",
+                rating: 6.6,
+                year: 2021,
+                description: "정해진 시간에 지옥행이 선고되는 초자연적 현상이 일어나는 세상에서 벌어지는 이야기."
+            },
+            {
+                title: "#7",
+                medium_cover_image: "7.png",
+                rating: 7.8,
+                year: 2021,
+                description: "아버지의 복수를 위해 조직에 들어간 윤지우가 경찰이 되어 진실을 찾아가는 액션 스릴러."
+            },
+            {
+                title: "#8.",
+                medium_cover_image: "9.png",
+                rating: 8.2,
+                year: 2021,
+                description: "군대 내 탈영병을 잡는 임무를 수행하는 D.P.(Deserter Pursuit) 부대원들의 이야기."
+            }
+        ];
 
-<div class="cards-section">
-  <h2>Chapter 2</h2>
-  <div class="cards">
-    <div class="card no-video">
-      <img src="6.png" alt="썸네일 6">
-    </div>
-    <div class="card no-video">
-      <img src="7.png" alt="썸네일 7">
-    </div>
-    <div class="card no-video">
-      <img src="8.png" alt="썸네일 8">
-    </div>
-    <div class="card no-video">
-      <img src="9.png" alt="썸네일 9">
-    </div>
-    <div class="card no-video">
-      <img src="10.png" alt="썸네일 10">
-    </div>
-  </div>
-</div>
+        // Initialize sliders
+        for(let i = 0; i < slider.length; i++){
+            getMovies(slider[i], i + 1);
+            makeSlider(slider[i], prev[i], next[i]);
+        }
 
-<script>
-  document.querySelectorAll('.card').forEach(card => {
-    const video = card.querySelector('video');
-    if (video) {
-      card.addEventListener('mouseenter', () => {
-        card.classList.add('hovering');
-        video.currentTime = 0;
-        video.play();
-      });
-      card.addEventListener('mouseleave', () => {
-        card.classList.remove('hovering');
-        video.pause();
-        video.currentTime = 0;
-      });
-    }
-  });
+        function makeSlider(element, prev, next){
+            next.addEventListener('click', () => {
+                const offsetX = element.offsetWidth;
+                element.scrollBy(offsetX, 0);
+            });
+            prev.addEventListener('click', () => {
+                const offsetX = element.offsetWidth;
+                element.scrollBy(-offsetX, 0);
+            });
+        }
 
-  const hero = document.querySelector('.hero');
-  const heroVideo = hero.querySelector('video');
+        function getMovies(element, page){
+            // Use sample data instead of API call
+            const startIndex = (page - 1) * 8;
+            const endIndex = startIndex + 8;
+            const movies = [];
+            
+            // Cycle through sample movies to fill each slider
+            for(let i = 0; i < 8; i++) {
+                const movieIndex = (startIndex + i) % sampleMovies.length;
+                movies.push(sampleMovies[movieIndex]);
+            }
+            
+            movies.forEach(movie => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.innerHTML = `<img src="${movie.medium_cover_image}" alt="${movie.title}">`;
+                
+                // Add click event to show modal
+                div.addEventListener('click', () => {
+                    showModal(movie);
+                });
+                
+                element.appendChild(div);
+            });
+        }
 
-  hero.addEventListener('mouseenter', () => {
-    hero.classList.add('hovering');
-    heroVideo.currentTime = 0;
-    heroVideo.play();
-  });
+        function showModal(movie) {
+            document.getElementById('modalImage').src = movie.medium_cover_image;
+            document.getElementById('modalTitle').textContent = movie.title;
+            document.getElementById('modalRating').textContent = movie.rating;
+            document.getElementById('modalDescription').textContent = movie.description;
+            document.getElementById('modalDate').textContent = movie.year + '-06-16';
+            
+            overlay.style.display = 'block';
+            modal.classList.remove('hidden');
+            modal.classList.add('show');
+        }
 
-  hero.addEventListener('mouseleave', () => {
-    hero.classList.remove('hovering');
-    setTimeout(() => {
-      if (!hero.classList.contains('hovering')) {
-        heroVideo.pause();
-        heroVideo.currentTime = 0;
-      }
-    }, 500);
-  });
+        function hideModal() {
+            overlay.style.display = 'none';
+            modal.classList.remove('show');
+            modal.classList.add('hidden');
+        }
 
-  heroVideo.addEventListener('ended', () => {
-    hero.classList.remove('hovering');
-    setTimeout(() => {
-      heroVideo.currentTime = 0;
-    }, 500);
-  });
-</script>
+        // Modal event listeners
+        closeBtn.addEventListener('click', hideModal);
+        overlay.addEventListener('click', hideModal);
 
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hideModal();
+            }
+        });
+    </script>
 </body>
 </html>
